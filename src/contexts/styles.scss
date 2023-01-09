@@ -1,0 +1,77 @@
+@import "src/colors.scss";
+
+.modals-wrapper {
+  position: absolute;
+  background-color: rgba($color: black, $alpha: 0.8);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .modal {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 400px;
+    min-height: 300px;
+
+    padding: 1rem;
+
+    color: black;
+    border-radius: 1rem;
+    border: 0.25rem solid white;
+    background: radial-gradient(
+      circle,
+      rgba($color: $blue, $alpha: 1) 10%,
+      rgba($color: $blue, $alpha: 0.7) 50%,
+      rgba($color: $blue, $alpha: 0.5) 80%
+    );
+    filter: drop-shadow(1rem 1rem 2rem black);
+
+    .autoclose-button {
+      cursor: pointer;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      appearance: none;
+
+      width: 2rem;
+      aspect-ratio: 1;
+
+      border: none;
+      border-radius: 0 0.2rem 0 1rem;
+
+      &::before {
+        position: absolute;
+        content: "X";
+        color: black;
+
+        font-size: 1rem;
+        font-weight: 900;
+      }
+    }
+  }
+}
+.df-c {
+  display: flex;
+  flex-direction: column;
+}
+.df-r {
+  display: flex;
+  flex-direction: row;
+}
+.j-center {
+  justify-content: center;
+}
+.a-center {
+  align-items: center;
+}

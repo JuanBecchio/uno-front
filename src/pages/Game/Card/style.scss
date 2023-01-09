@@ -1,0 +1,153 @@
+@import "src/colors.scss";
+
+@mixin center-font-style {
+  font-family: "Tahoma", sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.3rem;
+  -webkit-text-stroke: 0.05rem;
+  -webkit-text-stroke-color: black;
+  text-shadow: -0.15rem 0.15rem 0 black, -0.25rem 0.25rem 0 black;
+}
+@mixin font-style {
+  font-family: "Tahoma", sans-serif;
+  font-weight: 900;
+
+  letter-spacing: -0.3rem;
+  -webkit-text-stroke: 0.1rem;
+  -webkit-text-stroke-color: black;
+  text-shadow: -0.15rem 0.15rem 0 black, -0.2rem 0.2rem 0 black;
+  color: white;
+}
+
+@mixin card {
+  user-select: none;
+  display: flex;
+  background-color: black;
+  width: 120px;
+  aspect-ratio: 0.7;
+  border-radius: 0.8rem;
+  border: 0.4rem solid white;
+  backface-visibility: hidden;
+
+  > .center {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: $red;
+    border: 0.3rem solid $red;
+    border-radius: 200% 50%;
+    margin: 10% 0;
+
+    &::before {
+      content: "uño";
+      position: absolute;
+      text-transform: uppercase;
+      font-size: 3.6rem;
+      transform: translateX(-0.1rem) translateY(-0.1rem);
+      rotate: -20deg;
+
+      @include center-font-style;
+
+      filter: drop-shadow(-1px 1px 0px white) drop-shadow(-1px -1px 0px white)
+        drop-shadow(1px -1px 0px white) drop-shadow(1px 1px 0px white);
+
+      color: $yellow;
+    }
+  }
+}
+
+.component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform-style: preserve-3d;
+  width: 130px;
+  height: 190px;
+
+  .card {
+    position: absolute;
+
+    @include card;
+
+    &.front {
+      background-color: currentColor;
+      > .center {
+        background-color: white;
+        border-color: white;
+        &::before {
+          display: none;
+        }
+      }
+      p {
+        position: absolute;
+        margin: 0.3rem 0.4rem;
+        font-size: 2rem;
+        @include font-style;
+        letter-spacing: -0.5rem;
+        &.top {
+          top: 0;
+        }
+        &.bottom {
+          bottom: 0;
+          right: 0;
+          rotate: 180deg;
+        }
+        > &.center {
+          font-size: 3.8rem;
+          transform: translateX(-0.2rem) translateY(-0.2rem) scaleY(1.1)
+            scale(1.1);
+          letter-spacing: -0.3rem;
+          color: currentColor;
+        }
+      }
+    }
+    &.back {
+      transform: rotateY(180deg);
+    }
+  }
+  &.hidden {
+    transform: rotateY(180deg);
+  }
+}
+
+.deck-component {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 600px;
+  transform-style: preserve-3d;
+
+  .cards-parent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    .card-button,
+    .component {
+      position: absolute;
+      transform: rotateY(180deg);
+      z-index: 1;
+    }
+  }
+  .card {
+    @include card;
+    .center {
+      > p {
+        position: absolute;
+        z-index: 100;
+        background-color: black;
+        color: white;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+    }
+  }
+}

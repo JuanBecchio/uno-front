@@ -1,0 +1,145 @@
+@import "src/colors.scss";
+
+@keyframes Rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes FlexArraySize {
+  0% {
+    max-width: 0px;
+  }
+  100% {
+    max-width: 130px;
+  }
+}
+@keyframes CardTransform {
+  0% {
+    transform: translateZ(100px);
+  }
+  100% {
+    transform: translateZ(0px);
+  }
+}
+
+.game-container {
+  position: relative;
+  user-select: none;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  font-family: Tahoma, sans-serif;
+
+  background: radial-gradient(
+    circle,
+    rgba($color: $red, $alpha: 1) 10%,
+    rgba($color: $red, $alpha: 0.7) 50%,
+    rgba($color: $red, $alpha: 0.5) 80%
+  );
+
+  .reverse-icon {
+    position: absolute;
+    height: 100%;
+    aspect-ratio: 1;
+    color: rgba($color: $red, $alpha: 1);
+    opacity: 0.2;
+    filter: drop-shadow(0 0 50px rgba($color: rgb(0, 0, 0), $alpha: 0.7));
+    animation: Rotate 8s linear infinite;
+  }
+
+  .other-players {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    .player {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      > p {
+        margin: 0;
+        font-weight: 800;
+        font-size: 2rem;
+      }
+      > .hand {
+        display: flex;
+        justify-content: center;
+        perspective: 600px;
+        height: 190px;
+        .component {
+          flex: 1;
+          width: 0.5vw;
+          transform: rotateX(-30deg) rotateY(180deg);
+        }
+      }
+      &.turn {
+        color: $ui-green;
+      }
+    }
+  }
+  .deck {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 40px;
+
+    .dump {
+      position: relative;
+      justify-content: center;
+      align-items: center;
+      width: 130px;
+    }
+  }
+  .local-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .player-hand {
+      display: flex;
+      justify-content: center;
+      height: 190px;
+      width: 60vw;
+      perspective: 600px;
+      background-color: black;
+      .card-button {
+        transform-style: preserve-3d;
+        cursor: pointer;
+        appearance: none;
+        border: none;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
+
+        flex: 1;
+        // max-width: 130px;
+        animation: FlexArraySize 0.2s ease forwards;
+        .component {
+          width: 100%;
+          // animation: FlexArraySize 0.2s ease forwards;
+          .card {
+            animation: CardTransform 0.2s ease;
+            transition: transform 0.2s ease-out;
+          }
+          &:hover .card {
+            transform: translateY(-2.5rem);
+            box-shadow: 0 0 0.5rem rgba($color: orange, $alpha: 0.6),
+              inset 0 0 1rem rgba($color: white, $alpha: 0.6);
+            &.back {
+              transform: rotateY(180deg);
+            }
+          }
+        }
+        &.disabled {
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}
